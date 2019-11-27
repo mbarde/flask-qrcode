@@ -16,20 +16,40 @@ def create_app():
         url = request.args.get('url', '')
         if len(url) == 0:
             abort(400, 'Please specify a valid URL (starting with http/https)')
-
         if not url.startswith('http://') and \
            not url.startswith('https://'):
             abort(400, 'Please specify a valid URL (starting with http/https)')
+
+        boxSize = getIntegerParameter('boxsize', 10, 1, 100)
+        size = getIntegerParameter('size', False, 10, 1000)
 
         codesFolder = 'codes'
         if not path.exists(codesFolder):
             mkdir(codesFolder)
 
         filename = normalizeFilename(url)
-        fullFilename = '{0}/{1}.png'.format(codesFolder, filename)
+        sizeStr = 'auto'
+        if size is not False:
+            sizeStr = str(size)
+        fullFilename = '{0}/{1}.{2}.{3}.png'.format(
+            codesFolder, filename, boxSize, sizeStr)
+
         if not path.exists(fullFilename):
             import qrcode
-            img = qrcode.make(url)
+            qr = qrcode.QRCode(
+                version=None,
+                error_correction=qrcode.constants.ERROR_CORRECT_L,
+                box_size=boxSize,
+                border=4,
+            )
+            qr.add_data(url)
+            qr.make(fit=True)
+            img = qr.make_image(fill_color="black", back_color="white")
+
+            if size is not False:
+                from PIL import Image
+                img = img.resize((size, size), Image.ANTIALIAS)
+
             img.save(fullFilename)
 
         return send_file(fullFilename)
@@ -41,6 +61,22 @@ def create_app():
         filename = ''.join(c for c in s if c in valid_chars)
         filename = filename.replace(' ', '_')  # I don't like spaces in filenames.
         return filename
+
+    def getIntegerParameter(key, default, min, max):
+        abortMessage = 'Please specify a valid value for {0} (a number between {1} and {2})'.format(
+            key, min, max)
+        value = request.args.get(key, default)
+        if value is default:
+            return value
+        try:
+            value = int(value)
+        except ValueError:
+            abort(400, abortMessage)
+        if value > max:
+            abort(400, abortMessage)
+        if value < min:
+            abort(400, abortMessage)
+        return value
 
     return app
 
