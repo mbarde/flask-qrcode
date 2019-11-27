@@ -11,10 +11,15 @@ def create_app():
     app = Flask(__name__)
 
     @app.route('/')
+    @app.route('/gen')
     def index():
         url = request.args.get('url', '')
         if len(url) == 0:
             abort(400)
+
+        if not url.startswith('http://') and \
+           not url.startswith('https://'):
+            abort(400, 'Please specify a valid URL (starting with http/https)')
 
         codesFolder = 'codes'
         if not path.exists(codesFolder):
