@@ -15,7 +15,7 @@ def create_app():
     def index():
         url = request.args.get('url', '')
         if len(url) == 0:
-            abort(400)
+            abort(400, 'Please specify a valid URL (starting with http/https)')
 
         if not url.startswith('http://') and \
            not url.startswith('https://'):
