@@ -1,12 +1,14 @@
-Simple Flask server which delivers QR codes for URLs (expects GET/POST parameter `url`).
+# QR-Code generation server
 
-QR-Codes are cached in folder  `codes`. In production you should deploy a proper clean-up method here ;)
+No black magic here, just a [Flask server](https://www.palletsprojects.com/p/flask/) wrapped around a [QR code image generator](https://pypi.org/project/qrcode/) to generate QR codes images representing URLs.
 
-Expected paramters:
+QR-Codes are cached in folder  `codes`. In production you should deploy a proper clean-up mechanism here ;)
 
-* url: URL to "qr-encode"
-* size (optional): Size (width & height) of resulting QR code image
-* boxsize (optional): Size of single box of the QR code (when `size` is set as well, this is the size of each box *before* image gets resized)
+Expected parameters:
+
+* `url`: URL to "qr-encode"
+* `size` (optional): Size (width & height) of resulting QR code image
+* `boxsize` (optional): Size of single box of the QR code (when `size` is set as well, this is the size of each box *before* image gets resized)
 
 
 ## Setup & run
