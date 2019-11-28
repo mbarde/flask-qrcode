@@ -1,6 +1,6 @@
 # QR-Code generation server
 
-No black magic here, just a [Flask server](https://www.palletsprojects.com/p/flask/) wrapped around a [QR code image generator](https://pypi.org/project/qrcode/) to generate QR codes images representing URLs.
+Nothing magical here, just a [Flask server](https://www.palletsprojects.com/p/flask/) wrapped around a [QR code image generator](https://pypi.org/project/qrcode/) to generate QR codes images representing URLs.
 
 QR-Codes are cached in folder  `codes`. In production you should deploy a proper clean-up mechanism here ;)
 
