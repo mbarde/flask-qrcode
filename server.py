@@ -27,12 +27,17 @@ def create_app():
         boxSize = getIntegerParameter('boxsize', 10, 1, 100)
         size = getIntegerParameter('size', False, 10, 1000)
 
+        fill = getHexParameter('fill', '000000')
+        back = getHexParameter('back', 'FFFFFF')
+
         codesFolderName = 'codes'
         initCodesFolder(codesFolderName)
-        filename = generateFilename(codesFolderName, url, size, boxSize)
+        filename = generateFilename(
+            codesFolderName, url, size, boxSize, fill, back)
 
         if not path.exists(filename):
-            img = generateQRCodeImage(url, size, boxSize)
+            img = generateQRCodeImage(
+                url, size, boxSize, fill, back)
             img.save(filename)
 
         return send_file(filename)
@@ -59,20 +64,26 @@ def create_app():
             abort(400, abortMessage)
         return value
 
+    def getHexParameter(key, default):
+        value = request.args.get(key, default)
+        if len(value) != 6:
+            return default
+        return value
+
     def initCodesFolder(folderName):
         if not path.exists(folderName):
             mkdir(folderName)
 
-    def generateFilename(codesFolderName, url, size, boxSize):
+    def generateFilename(codesFolderName, url, size, boxSize, fill, back):
         filename = normalizeFilename(url)
         sizeStr = 'auto'
         if size is not False:
             sizeStr = str(size)
-        fullFilename = '{0}/{1}.{2}.{3}.png'.format(
-            codesFolderName, filename, boxSize, sizeStr)
+        fullFilename = '{0}/{1}.{2}.{3}.{4}.{5}.png'.format(
+            codesFolderName, filename, boxSize, sizeStr, fill, back)
         return fullFilename
 
-    def generateQRCodeImage(url, size, boxSize):
+    def generateQRCodeImage(url, size, boxSize, fill, back):
         qr = qrcode.QRCode(
             version=None,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
@@ -81,7 +92,10 @@ def create_app():
         )
         qr.add_data(url)
         qr.make(fit=True)
-        img = qr.make_image(fill_color='black', back_color='white')
+        img = qr.make_image(
+            fill_color=hex2rgb(fill),
+            back_color=hex2rgb(back),
+        )
 
         if size is not False:
             img = img.resize((size, size), LANCZOS)
@@ -95,6 +109,9 @@ def create_app():
         filename = ''.join(c for c in s if c in valid_chars)
         filename = filename.replace(' ', '_')
         return filename
+
+    def hex2rgb(hex):
+        return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))
 
     @app.route('/static/<path:path>')
     def sendStaticResources(path):

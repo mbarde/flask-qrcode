@@ -24,6 +24,12 @@ function createQRCode(event) {
         src += '&boxsize=' + boxsize;
     }
 
+    const clrfill = document.getElementById('clrfill').value;
+    if (clrfill) src += '&fill=' + clrfill.slice(1);
+
+    const clrback = document.getElementById('clrback').value;
+    if (clrback) src += '&back=' + clrback.slice(1);
+
     document.getElementById('qrcode').src = src;
     document.getElementById('qrcode').style.display = 'block';
 

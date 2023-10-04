@@ -40,13 +40,31 @@
         />
         <label for="boxsize">Box size</label>
         <i>Optional. Size in pixels of single box of the QR code. When image size is set as well, this is the size of each box before image gets resized.<br>Allowed range: 1 to 100</i>
-        <input 
+        <input
           type="number"
           min="1"
           max="100"
           name="boxsize"
           id="boxsize"
           onchange="createQRCode()"
+        />
+        <label for="clrfill">Fill color</label>
+        <input
+          type="color"
+          name="clrfill"
+          id="clrfill"
+          onchange="createQRCode()"
+          value="#000000"
+          colorpick-eyedropper-active="true"
+        />
+        <label for="clrback">Background color</label>
+        <input
+          type="color"
+          name="clrback"
+          id="clrback"
+          onchange="createQRCode()"
+          value="#FFFFFF"
+          colorpick-eyedropper-active="true"
         />
         <input type="submit" value="Create"/>
       </form>
