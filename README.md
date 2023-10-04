@@ -12,6 +12,10 @@ Expected parameters:
 * `fill` (optional): Hex code for fill color (without `#`)
 * `back` (optional): Hex code for background color (without `#`)
 
+## Frontend
+
+![ui](https://github.com/mbarde/flask-qrcode/assets/4497578/b269f2cc-654f-4ece-8ce4-b7a3e32b9cc0)
+
 ## Setup & run
 
 Within your virtual environment:
