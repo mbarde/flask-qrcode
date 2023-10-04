@@ -1,6 +1,8 @@
-# QR-Code generation server
+# QR-Code generator with web UI
 
 Nothing magical here, just a [Flask server](https://www.palletsprojects.com/p/flask/) wrapped around this [QR code image generator](https://pypi.org/project/qrcode/) to create a server which is able to generate QR code images representing URLs.
+
+Also provides a frontend to allow users to create QR-Codes through a web-based UI.
 
 QR-Codes are cached in folder  `codes`. In production you should deploy a proper clean-up mechanism here ;)
 
