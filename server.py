@@ -6,6 +6,8 @@ from flask import send_file
 from os import mkdir
 from os import path
 
+import qrcode
+
 
 def create_app():
     app = Flask(__name__)
@@ -34,11 +36,14 @@ def create_app():
         if len(url) > 0:
             if not url.startswith('http://') and \
                not url.startswith('https://'):
-                abort(400, 'Please specify a valid URL (starting with http/https)')
+                abort(
+                    400,
+                    'Please specify a valid URL (starting with http/https)',  # noqa: E501
+                )
         return url
 
     def getIntegerParameter(key, default, min, max):
-        abortMessage = 'Please specify a valid value for {0} (a number between {1} and {2})'.format(
+        abortMessage = 'Please specify a valid value for {0} (a number between {1} and {2})'.format(  # noqa: E501
             key, min, max)
         value = request.args.get(key, default)
         if value is default:
@@ -67,7 +72,6 @@ def create_app():
         return fullFilename
 
     def generateQRCodeImage(url, size, boxSize):
-        import qrcode
         qr = qrcode.QRCode(
             version=None,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
@@ -76,7 +80,7 @@ def create_app():
         )
         qr.add_data(url)
         qr.make(fit=True)
-        img = qr.make_image(fill_color="black", back_color="white")
+        img = qr.make_image(fill_color='black', back_color='white')
 
         if size is not False:
             from PIL import Image
@@ -87,9 +91,9 @@ def create_app():
     def normalizeFilename(s):
         # https://gist.github.com/seanh/93666
         import string
-        valid_chars = "-_.() %s%s" % (string.ascii_letters, string.digits)
+        valid_chars = '-_.() %s%s' % (string.ascii_letters, string.digits)
         filename = ''.join(c for c in s if c in valid_chars)
-        filename = filename.replace(' ', '_')  # I don't like spaces in filenames.
+        filename = filename.replace(' ', '_')
         return filename
 
     return app
