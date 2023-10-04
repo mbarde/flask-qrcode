@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 from flask import abort
 from flask import Flask
+from flask import render_template
 from flask import request
 from flask import send_file
+from flask import send_from_directory
 from os import mkdir
 from os import path
+from PIL.Image import LANCZOS
 
 import qrcode
 
@@ -16,6 +19,11 @@ def create_app():
     @app.route('/gen')
     def index():
         url = getURL()
+        if url is False:
+            return render_template(
+                'index.html',
+                title='Create QR-Codes',
+            )
         boxSize = getIntegerParameter('boxsize', 10, 1, 100)
         size = getIntegerParameter('size', False, 10, 1000)
 
@@ -32,14 +40,7 @@ def create_app():
     def getURL():
         url = request.args.get('url', '')
         if len(url) == 0:
-            abort(400, 'Please specify a valid URL (starting with http/https)')
-        if len(url) > 0:
-            if not url.startswith('http://') and \
-               not url.startswith('https://'):
-                abort(
-                    400,
-                    'Please specify a valid URL (starting with http/https)',  # noqa: E501
-                )
+            return False
         return url
 
     def getIntegerParameter(key, default, min, max):
@@ -83,8 +84,7 @@ def create_app():
         img = qr.make_image(fill_color='black', back_color='white')
 
         if size is not False:
-            from PIL import Image
-            img = img.resize((size, size), Image.ANTIALIAS)
+            img = img.resize((size, size), LANCZOS)
 
         return img
 
@@ -95,6 +95,10 @@ def create_app():
         filename = ''.join(c for c in s if c in valid_chars)
         filename = filename.replace(' ', '_')
         return filename
+
+    @app.route('/static/<path:path>')
+    def sendStaticResources(path):
+        return send_from_directory('static', path)
 
     return app
 

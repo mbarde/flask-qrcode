@@ -1,0 +1,68 @@
+<!doctype html>
+
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ title }}">
+  <meta name="author" content="Matthias Barde">
+
+  <!--
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  -->
+
+  <link rel="stylesheet" href="/static/water.css">
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/main.js"></script> 
+</head>
+
+<body style="max-width: 1600px;">
+  <h1>{{ title }}</h1>
+  <div class="main">
+    <div>
+      <form onsubmit="createQRCode(event)">
+        <label for="url">URL</label>
+        <i>Create QR-Code for this URL.</i>
+        <input type="url" name="url" id="url" placeholder="https://example.com" />
+        <label for="size">Image size</label>
+        <i>Optional. Image size in pixels.<br>Allowed range: 10 to 1000</i>
+        <input 
+          type="number"
+          min="10"
+          max="1000"
+          name="size"
+          id="size"
+          onchange="createQRCode()"
+        />
+        <label for="boxsize">Box size</label>
+        <i>Optional. Size in pixels of single box of the QR code. When image size is set as well, this is the size of each box before image gets resized.<br>Allowed range: 1 to 100</i>
+        <input 
+          type="number"
+          min="1"
+          max="100"
+          name="boxsize"
+          id="boxsize"
+          onchange="createQRCode()"
+        />
+        <input type="submit" value="Create"/>
+      </form>
+      <blockquote>
+        <h2>Hint</h2>
+        <p>
+          Right click on created QR-Code image to download it or to copy URL to it.
+        </p>
+      </blockquote>
+    </div>
+    <div>
+      <img id="qrcode"/>
+    </div>
+  </div>
+  <footer>
+    🐍-powered by <a href="https://github.com/mbarde/flask-qrcode" target="_blank">flask-qrcode</a>
+  </footer>
+</body>
+</html>

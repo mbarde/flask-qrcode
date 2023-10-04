@@ -1,0 +1,26 @@
+.main {
+    column-gap: 50px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#qrcode {
+    border: 1px solid var(--border);
+    display: none;
+    padding: 10px;
+}
+
+form {
+    max-width: 500px;
+}
+
+form label {
+    display: block;
+    font-weight: bold;
+}
+
+form input {
+    margin-bottom: 20px;
+    margin-top: 10px;
+    width: 100%;
+}
