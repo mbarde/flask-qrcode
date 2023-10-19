@@ -26,7 +26,7 @@
     <div>
       <form onsubmit="createQRCode(event)">
         <label for="url">URL</label>
-        <i>Create QR-Code for this URL.</i>
+        <i>Create QR-code for this URL.</i>
         <input type="url" name="url" id="url" placeholder="https://example.com" />
         <label for="boxsize">Size</label>
         <input
@@ -65,15 +65,13 @@
         </div>
         <input type="submit" value="Create"/>
       </form>
-      <blockquote>
-        <h2>Hint</h2>
-        <p>
-          Right click on created QR-Code image to download it or to copy URL to it.
-        </p>
-      </blockquote>
     </div>
     <div>
       <img id="qrcode"/>
+      <br/>
+      <a id="btn-download" role="button" download>
+        <button>Download</button>
+      </a>
     </div>
   </div>
   <footer>

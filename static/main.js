@@ -3,6 +3,7 @@ function createQRCode(event) {
     if (!url || url.length === 0) {
         document.getElementById('qrcode').src = '';
         document.getElementById('qrcode').style.display = 'none';
+        document.getElementById('btn-download').style.display = 'none';
         event.preventDefault();
         return false;
     }
@@ -25,6 +26,10 @@ function createQRCode(event) {
 
     document.getElementById('qrcode').src = src;
     document.getElementById('qrcode').style.display = 'block';
+
+    const btnDownload = document.getElementById('btn-download');
+    btnDownload.href = src;
+    btnDownload.style.display = 'block';
 
     event.preventDefault();
     return false;
