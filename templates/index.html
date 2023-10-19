@@ -26,57 +26,53 @@
     <div>
       <form onsubmit="createQRCode(event)">
         <label for="url">URL</label>
-        <i>Create QR-Code for this URL.</i>
+        <i>Create QR-code for this URL.</i>
         <input type="url" name="url" id="url" placeholder="https://example.com" />
-        <label for="size">Image size</label>
-        <i>Optional. Image size in pixels.<br>Allowed range: 10 to 1000</i>
-        <input 
-          type="number"
-          min="10"
-          max="1000"
-          name="size"
-          id="size"
-          onchange="createQRCode()"
-        />
-        <label for="boxsize">Box size</label>
-        <i>Optional. Size in pixels of single box of the QR code. When image size is set as well, this is the size of each box before image gets resized.<br>Allowed range: 1 to 100</i>
+        <label for="boxsize">Size</label>
         <input
-          type="number"
+          type="range"
+          id="boxsize"
+          name="boxsize"
           min="1"
           max="100"
-          name="boxsize"
-          id="boxsize"
+          value="20"
+          step="1"
           onchange="createQRCode()"
         />
-        <label for="clrfill">Fill color</label>
-        <input
-          type="color"
-          name="clrfill"
-          id="clrfill"
-          onchange="createQRCode()"
-          value="#000000"
-          colorpick-eyedropper-active="true"
-        />
-        <label for="clrback">Background color</label>
-        <input
-          type="color"
-          name="clrback"
-          id="clrback"
-          onchange="createQRCode()"
-          value="#FFFFFF"
-          colorpick-eyedropper-active="true"
-        />
+        <div class="colors">
+          <div>
+            <label for="clrfill">Fill:</label>
+            <input
+              type="color"
+              name="clrfill"
+              id="clrfill"
+              onchange="createQRCode()"
+              value="#000000"
+              colorpick-eyedropper-active="true"
+            />
+          </div>
+          <div>
+            <label for="clrback">Background:</label>
+            <input
+              type="color"
+              name="clrback"
+              id="clrback"
+              onchange="createQRCode()"
+              value="#FFFFFF"
+              colorpick-eyedropper-active="true"
+            />
+          </div>
+        </div>
         <input type="submit" value="Create"/>
       </form>
-      <blockquote>
-        <h2>Hint</h2>
-        <p>
-          Right click on created QR-Code image to download it or to copy URL to it.
-        </p>
-      </blockquote>
     </div>
     <div>
       <img id="qrcode"/>
+      <br/>
+      <a id="btn-download" role="button" download>
+        <button>Download</button>
+      </a>
+      <button id="btn-copy">Copy URL</button>
     </div>
   </div>
   <footer>
