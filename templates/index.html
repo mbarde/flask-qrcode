@@ -28,24 +28,15 @@
         <label for="url">URL</label>
         <i>Create QR-Code for this URL.</i>
         <input type="url" name="url" id="url" placeholder="https://example.com" />
-        <label for="size">Image size</label>
-        <i>Optional. Image size in pixels.<br>Allowed range: 10 to 1000</i>
-        <input 
-          type="number"
-          min="10"
-          max="1000"
-          name="size"
-          id="size"
-          onchange="createQRCode()"
-        />
-        <label for="boxsize">Box size</label>
-        <i>Optional. Size in pixels of single box of the QR code. When image size is set as well, this is the size of each box before image gets resized.<br>Allowed range: 1 to 100</i>
+        <label for="boxsize">Size</label>
         <input
-          type="number"
+          type="range"
+          id="boxsize"
+          name="boxsize"
           min="1"
           max="100"
-          name="boxsize"
-          id="boxsize"
+          value="10"
+          step="1"
           onchange="createQRCode()"
         />
         <label for="clrfill">Fill color</label>
