@@ -16,11 +16,24 @@ form {
 
 form label {
     display: block;
+    font-size: 1.2em;
     font-weight: bold;
+    margin-top: 2em;
 }
 
 form input {
     margin-bottom: 20px;
     margin-top: 10px;
     width: 100%;
+}
+
+form .colors {
+    column-gap: 10px;
+    display: flex;
+}
+
+form .colors > div {
+    flex-basis: 50%;
+    flex-grow: 1;
+    flex-shrink: 1;
 }

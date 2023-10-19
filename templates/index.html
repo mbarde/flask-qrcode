@@ -39,24 +39,30 @@
           step="1"
           onchange="createQRCode()"
         />
-        <label for="clrfill">Fill color</label>
-        <input
-          type="color"
-          name="clrfill"
-          id="clrfill"
-          onchange="createQRCode()"
-          value="#000000"
-          colorpick-eyedropper-active="true"
-        />
-        <label for="clrback">Background color</label>
-        <input
-          type="color"
-          name="clrback"
-          id="clrback"
-          onchange="createQRCode()"
-          value="#FFFFFF"
-          colorpick-eyedropper-active="true"
-        />
+        <div class="colors">
+          <div>
+            <label for="clrfill">Fill:</label>
+            <input
+              type="color"
+              name="clrfill"
+              id="clrfill"
+              onchange="createQRCode()"
+              value="#000000"
+              colorpick-eyedropper-active="true"
+            />
+          </div>
+          <div>
+            <label for="clrback">Background:</label>
+            <input
+              type="color"
+              name="clrback"
+              id="clrback"
+              onchange="createQRCode()"
+              value="#FFFFFF"
+              colorpick-eyedropper-active="true"
+            />
+          </div>
+        </div>
         <input type="submit" value="Create"/>
       </form>
       <blockquote>
