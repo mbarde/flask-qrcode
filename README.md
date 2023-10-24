@@ -16,7 +16,7 @@ Expected parameters:
 
 ## Frontend
 
-![ui](https://github.com/mbarde/flask-qrcode/assets/4497578/b269f2cc-654f-4ece-8ce4-b7a3e32b9cc0)
+![Screenshot_2023-10-24_09-08-15](https://github.com/mbarde/flask-qrcode/assets/4497578/4ed4fbda-831f-4a6c-8fc9-d674b3c5d603)
 
 ## Setup & run
 
