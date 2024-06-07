@@ -38,5 +38,5 @@ In production enviroments I suggest serving the application via [waitress](https
 
 ```
 pip install waitress
-waitress-serve --port=5000 --call "server:create_app"`
+waitress-serve --port=5000 --call "server:create_app"
 ```
