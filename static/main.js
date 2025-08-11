@@ -9,7 +9,8 @@ function createQRCode(event) {
         return false;
     }
 
-    if (url.endsWith('/')) url = url.slice(0, -1);    
+    if (url.endsWith('/')) url = url.slice(0, -1);
+    url = encodeURIComponent(url);
     let src = '?url=' + url;
 
     let boxsize = document.getElementById('boxsize').value;
